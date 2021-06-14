@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -28,6 +29,11 @@ public class ClienteController {
         return repository.save(cliente);
     }
 
+
+    @GetMapping
+    public List<Cliente> obterTodos(){
+        return repository.findAll();
+    }
 
     @GetMapping("{id}")
     public Cliente buscarPorId(@PathVariable Integer id){
