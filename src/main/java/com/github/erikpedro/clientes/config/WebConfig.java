@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-@CrossOrigin("http://localhost:4200")
 public class WebConfig {
 
     @Bean
