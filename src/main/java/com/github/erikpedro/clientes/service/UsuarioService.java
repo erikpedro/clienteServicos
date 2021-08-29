@@ -2,6 +2,7 @@ package com.github.erikpedro.clientes.service;
 
 import com.github.erikpedro.clientes.model.entity.Usuario;
 import com.github.erikpedro.clientes.model.repository.UsuarioRepository;
+import com.github.erikpedro.clientes.rest.exception.UsuarioCadastradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,14 @@ public class UsuarioService implements UserDetailsService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    public Usuario salvar(Usuario usuario){
+        boolean exists = usuarioRepository.existsByUsername(usuario.getUsername());
+        if(exists){
+            throw new UsuarioCadastradoException(usuario.getUsername());
+        }
+        return usuarioRepository.save(usuario);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
